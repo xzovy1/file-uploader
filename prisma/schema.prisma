@@ -6,8 +6,6 @@
 
 generator client {
   provider        = "prisma-client-js"
-  output          = "../generated/prisma"
-  previewFeatures = ["typedSql"]
 }
 
 datasource db {
@@ -22,7 +20,7 @@ model User {
   password  String
   role      Role     @default(User)
   folders   Folder[]
-  File      File[]
+  files     File[]
 }
 
 model Folder {
