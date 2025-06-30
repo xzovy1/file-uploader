@@ -7,9 +7,45 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql" 
+  url      = env(process.env.DB)
+}
+
+model User {
+  id         Int         @id@default(autoincrement())
+  createdAt  DateTime    @default(now())
+  username   String      @unique
+  password   String      
+  role       role        @default(User)
+  folders    Folder[]
+}
+
+model Folder {
+  id          Int         @id@default(autoincrement())
+  name        String      @unique
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    Int
+  createdAt   DateTime    @default(now())      
+  updatedAt   DateTime    @default(now())      
+  files       Files[]
+}
+
+model File {
+  id          Int         @id@default(autoincrement())
+  name        String      @unique
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    Int
+  createdAt   DateTime    @default(now())      
+  updatedAt   DateTime    @default(now())
+  folder      Folder      @relation(fields: [folderId], references: [id])      
+  folderId    Int
+}
+
+enum Role {
+  User
+  Admin
 }

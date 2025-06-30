@@ -30,4 +30,8 @@ app.use((req, res) => {
     res.status(404).render("error", {error: `${req.url}`, code: res.statusCode})
 })
 
+app.get('/', (req, res) => {
+    res.render('index', {title: "Log in"});
+})
+
 app.listen(3000, () => console.log("app listening: http://localhost:3000"));
