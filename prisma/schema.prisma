@@ -5,44 +5,45 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
   previewFeatures = ["typedSql"]
 }
 
 datasource db {
-  provider = "postgresql" 
-  url      = env(process.env.DB)
+  provider = "postgresql"
+  url      = env("process.env.DB")
 }
 
 model User {
-  id         Int         @id@default(autoincrement())
-  createdAt  DateTime    @default(now())
-  username   String      @unique
-  password   String      
-  role       role        @default(User)
-  folders    Folder[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  username  String   @unique
+  password  String
+  role      Role     @default(User)
+  folders   Folder[]
+  File      File[]
 }
 
 model Folder {
-  id          Int         @id@default(autoincrement())
-  name        String      @unique
-  author      User        @relation(fields: [authorId], references: [id])
-  authorId    Int
-  createdAt   DateTime    @default(now())      
-  updatedAt   DateTime    @default(now())      
-  files       Files[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  files     File[]
 }
 
 model File {
-  id          Int         @id@default(autoincrement())
-  name        String      @unique
-  author      User        @relation(fields: [authorId], references: [id])
-  authorId    Int
-  createdAt   DateTime    @default(now())      
-  updatedAt   DateTime    @default(now())
-  folder      Folder      @relation(fields: [folderId], references: [id])      
-  folderId    Int
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  Int
 }
 
 enum Role {
