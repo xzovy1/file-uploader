@@ -31,16 +31,30 @@ app.use((req, res, next) => {
   res.locals.messages = req.session.messages;
   next();
 });
+
 app.use("/user", usersRouter);
 
 app.get("/", (req, res) => {
   res.render("index", { title: "Log in", partial: "partials/login" });
 });
 
-app.use((req, res) => {
-  res
-    .status(404)
-    .render("error", { error: `${req.url}`, code: res.statusCode });
+app.use((err, req, res, next) => {
+  let statusCode = 404;
+  let message = "Not found";
+  switch (err.code) {
+    case "P2002":
+      message = "Username already taken";
+      statusCode = 400;
+  }
+  res.status(statusCode).render("index", {
+    title: "ERROR",
+    partial: "partials/error",
+    error: err,
+    code: res.statusCode,
+    message: message,
+    link: req.url,
+  });
+  next();
 });
 
 app.listen(3000, () => console.log("app listening: http://localhost:3000"));

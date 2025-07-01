@@ -1,10 +1,11 @@
 const prisma = require("../prisma/client");
+const asyncHandler = require("express-async-handler");
 
-async function signUpGet(req, res) {
+const signUpGet = (req, res) => {
   res.render("index", { title: "Sign up", partial: "partials/signup" });
-}
+};
 
-async function createUser(req, res) {
+const createUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   const user = await prisma.user.create({
     data: {
@@ -13,7 +14,7 @@ async function createUser(req, res) {
     },
   });
   res.redirect("/");
-}
+});
 
 async function getAll(req, res) {
   const users = await prisma.user.findMany();
