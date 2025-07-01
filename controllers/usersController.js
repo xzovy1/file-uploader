@@ -1,5 +1,6 @@
 const prisma = require("../prisma/client");
 const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcryptjs");
 
 const signUpGet = (req, res) => {
   res.render("index", { title: "Sign up", partial: "partials/signup" });
@@ -7,10 +8,11 @@ const signUpGet = (req, res) => {
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const user = await prisma.user.create({
     data: {
       username: username,
-      password: password,
+      password: hashedPassword,
     },
   });
   res.redirect("/");
@@ -22,14 +24,8 @@ async function getAll(req, res) {
   res.redirect("/");
 }
 
-async function getUserFolders() {}
-
-async function getFiles() {}
-
 module.exports = {
   signUpGet,
   createUser,
-  getUserFolders,
-  getFiles,
   getAll,
 };

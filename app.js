@@ -38,6 +38,14 @@ app.get("/", (req, res) => {
   res.render("index", { title: "Log in", partial: "partials/login" });
 });
 
+app.post(
+  "/login/password",
+  passport.authenticate("local", {
+    successRedirect: "/user",
+    failureRedirect: "/",
+  })
+);
+
 app.use((err, req, res, next) => {
   let statusCode = 404;
   let message = "Not found";
