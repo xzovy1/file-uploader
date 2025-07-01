@@ -25,7 +25,11 @@ const getUser = asyncHandler(async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.render("index", { title: `Welcome Back ${user.username}`, user: user });
+  res.render("index", {
+    title: `Welcome Back ${user.username}`,
+    user: user,
+    form: "partials/upload",
+  });
 });
 
 async function getAll(req, res) {
