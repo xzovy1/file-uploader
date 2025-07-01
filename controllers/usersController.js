@@ -18,6 +18,16 @@ const createUser = asyncHandler(async (req, res) => {
   res.redirect("/");
 });
 
+const getUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await prisma.user.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.render("index", { title: `Welcome Back ${user.username}` });
+});
+
 async function getAll(req, res) {
   const users = await prisma.user.findMany();
   console.log(users);
@@ -27,5 +37,6 @@ async function getAll(req, res) {
 module.exports = {
   signUpGet,
   createUser,
+  getUser,
   getAll,
 };

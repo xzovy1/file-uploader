@@ -33,20 +33,23 @@ app.use((req, res, next) => {
 });
 
 app.use("/user", usersRouter);
-
 app.get("/", (req, res) => {
   res.render("index", { title: "Log in", partial: "partials/login" });
 });
 
-app.post(
-  "/login/password",
-  passport.authenticate("local", {
-    successRedirect: "/user",
-    failureRedirect: "/",
-  })
-);
+app.post("/login/password", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.redirect("/");
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      return res.redirect(`/user/${user.id}`);
+    });
+  })(req, res, next);
+});
 
 app.use((err, req, res, next) => {
+  console.error(err);
   let statusCode = 404;
   let message = "Not found";
   switch (err.code) {

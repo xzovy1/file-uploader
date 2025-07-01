@@ -5,7 +5,7 @@ const usersController = require("../controllers/usersController");
 usersRouter.get("/new", usersController.signUpGet);
 usersRouter.post("/new", usersController.createUser);
 
-// usersRouter.get("/:id", usersController.getUserFolders);
-// usersRouter.get("/:id/:fileId", usersController.getFiles);
+usersRouter.get("/:id", usersController.getUser);
+
 usersRouter.post("/all", usersController.getAll);
 module.exports = usersRouter;
