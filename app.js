@@ -4,6 +4,9 @@ const express = require("express");
 const passport = require("./passport");
 
 const session = require("express-session");
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const prisma = require("./prisma/client");
+// const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 
@@ -20,6 +23,11 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+    store: new PrismaSessionStore(prisma, {
+      checkPeriod: 2 * 60 * 1000,
+      dbRecordIdFunction: undefined,
+      dbRecordIdIsSessionId: true,
+    }),
   })
 );
 
@@ -28,7 +36,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  res.locals.messages = req.session.messages;
   next();
 });
 
@@ -46,6 +53,13 @@ app.post("/login/password", (req, res, next) => {
       return res.redirect(`/user/${user.id}`);
     });
   })(req, res, next);
+});
+
+app.get("/log-out", (req, res, next) => {
+  req.logOut((err) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
 });
 
 app.use((err, req, res, next) => {

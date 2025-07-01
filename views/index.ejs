@@ -11,5 +11,9 @@
     <% if(locals.partial){ %>
         <%- include(partial) %>
     <% } %>
+    <% if(locals.user){ %> 
+        <a href="/log-out">Log out</a>
+        
+    <% } %>
 </body>
 </html>

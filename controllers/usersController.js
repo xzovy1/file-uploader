@@ -25,7 +25,7 @@ const getUser = asyncHandler(async (req, res) => {
       id: parseInt(id),
     },
   });
-  res.render("index", { title: `Welcome Back ${user.username}` });
+  res.render("index", { title: `Welcome Back ${user.username}`, user: user });
 });
 
 async function getAll(req, res) {
