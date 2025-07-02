@@ -32,15 +32,8 @@ const getUser = asyncHandler(async (req, res) => {
   });
 });
 
-async function getAll(req, res) {
-  const users = await prisma.user.findMany();
-  console.log(users);
-  res.redirect("/");
-}
-
 module.exports = {
   signUpGet,
   createUser,
   getUser,
-  getAll,
 };
