@@ -26,7 +26,7 @@ const getUser = asyncHandler(async (req, res) => {
     },
   });
   res.render("index", {
-    title: `Welcome Back ${user.username}`,
+    title: `Welcome, ${user.username}`,
     user: user,
     form: "partials/upload",
   });

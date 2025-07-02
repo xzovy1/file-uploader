@@ -46,8 +46,19 @@ app.get("/", (req, res) => {
 
 app.post("/login/password", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    if (err) return next(err);
-    if (!user) return res.redirect("/");
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    if (!user) {
+      const message = "No user found or credentials incorrect";
+      console.log("No user found or credentials incorrect");
+      return res.render("index", {
+        title: "Log in",
+        partial: "partials/login",
+        error: message,
+      });
+    }
     req.logIn(user, (err) => {
       if (err) return next(err);
       return res.redirect(`/user/${user.id}`);

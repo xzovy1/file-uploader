@@ -1,4 +1,9 @@
 <form action="/login/password" method="post">
+    <% if (locals.error){ %>
+        <div style="color: red;">
+            <%=error %>
+        </div>
+    <% } %>
     <section>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" autocomplete="username" required autofocus>
