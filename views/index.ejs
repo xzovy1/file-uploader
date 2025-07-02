@@ -13,7 +13,9 @@
     <% } %>
     <% if(user){ %> 
         <a href="/log-out">Log out</a>
-        <%- include(form) %>
+        <% if(locals.form){ %>
+            <%- include(form) %>
+        <% } %>
     <% } %>
-</body>
+    </body>
 </html>

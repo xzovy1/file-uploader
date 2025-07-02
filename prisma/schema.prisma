@@ -41,7 +41,7 @@ model File {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   folder    Folder   @relation(fields: [folderId], references: [id])
-  folderId  Int
+  folderId  Int      @default(autoincrement())
 }
 
 model Session {
