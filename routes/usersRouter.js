@@ -17,5 +17,7 @@ usersRouter.post(
   filesController.uploadFile
 );
 
+usersRouter.post("/newFolder", filesController.createFolder);
+
 usersRouter.get("/all", usersController.getAll);
 module.exports = usersRouter;
