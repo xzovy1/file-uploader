@@ -1,0 +1,11 @@
+<% console.log(fileSystemEntries) %>
+<% if(fileSystemEntries.length > 0){ fileSystemEntries.map(fileSystemEntry => { %>
+    <div class="folder">
+        <a href="/<%= fileSystemEntry.name %>"><%=fileSystemEntry.name %></a>
+        <div>Created: <%= fileSystemEntry.createdAt.toLocaleString() %></div>
+        <div>Modified: <%= fileSystemEntry.updatedAt.toLocaleString() %></div>
+    </div>
+<% }) %>
+<% }else{ %>
+    <h3>Nothing found</h3>
+<% } %> 

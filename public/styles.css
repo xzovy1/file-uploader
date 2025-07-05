@@ -14,3 +14,13 @@ form section{
     display: grid;
     align-items: center;
 }
+
+#uploadSection{
+    position: absolute;
+    top: 0;
+    left: 25;
+}
+
+.hide {
+    display: none;
+}

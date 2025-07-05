@@ -25,10 +25,16 @@ const getUser = asyncHandler(async (req, res) => {
       id: parseInt(id),
     },
   });
+  const folders = await prisma.folder.findMany({
+    where: {
+      authorId: parseInt(id),
+    },
+  });
   res.render("index", {
     title: `Welcome, ${user.username}`,
     user: user,
-    form: "partials/upload",
+    form: "partials/home",
+    fileSystemEntries: folders,
   });
 });
 

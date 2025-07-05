@@ -14,7 +14,7 @@ const createFolder = async (req, res) => {
   const { id } = res.locals.user;
 
   const projectFolder = join("./uploads", id.toString(), foldername);
-  const addFolder = await prisma.folder.create({
+  const constPrismaFolder = await prisma.folder.create({
     data: {
       name: foldername,
       authorId: parseInt(id),
@@ -24,7 +24,23 @@ const createFolder = async (req, res) => {
   res.redirect(`/user/${id}`);
 };
 
+const getFolder = async (req, res) => {
+  console.log("getFolder");
+  res.send("");
+  // const prismaFolder = await prisma.folder.findUnique({
+  //   where: {
+  //     authorId: 66,
+  //   },
+  // });
+  // res.render("index", {
+  //   title: prismaFolder.name,
+  //   user: res.locals.user,
+  //   partial: "partials/fileSystemEntries",
+  // });
+};
+
 module.exports = {
   uploadFile,
   createFolder,
+  getFolder,
 };

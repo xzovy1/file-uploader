@@ -8,6 +8,7 @@ usersRouter.get("/new", usersController.signUpGet);
 usersRouter.post("/new", usersController.createUser);
 
 usersRouter.get("/:id", usersController.getUser);
+usersRouter.get("/:id/:folderName", filesController.getFolder);
 
 usersRouter.post("/:id/upload", uploadMiddleware, filesController.uploadFile);
 

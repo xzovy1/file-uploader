@@ -1,0 +1,17 @@
+<h2>Your Documents</h2>
+<div>
+    <%- include("fileSystemEntries", {fileSystemEntries: fileSystemEntries}) %>
+</div>
+<div>
+    <button id="addButton">Add</button>
+    <div id="uploadSection" class="hide">
+        <%-  include("upload") %>
+    </div>
+    <script>
+        console.log(addButton, uploadSection)
+        addButton.addEventListener("click", () => {
+            console.log('clicked', uploadSection)
+            uploadSection.classList.toggle('hide')
+        })
+    </script>
+</div>
