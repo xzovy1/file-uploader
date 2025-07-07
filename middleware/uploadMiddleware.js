@@ -1,13 +1,13 @@
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(req.url.split("/"));
-    const user = req.url.split("/")[1];
-    if (req.url.split("/")[2]) {
-      const folder = req.url.split("/")[2];
-      cb(null, `./uploads/${user}/${folder}`);
+    const user = req.user;
+
+    const { folder } = req.params;
+    if (folder) {
+      cb(null, `./uploads/${user.id}/${folder}`);
     } else {
-      cb(null, `./uploads/${user}`);
+      cb(null, `./uploads/${user.id}/`);
     }
   },
   filename: (req, file, cb) => {

@@ -1,6 +1,6 @@
 <h2>Your Documents</h2>
 <div>
-    <%- include("fileSystemEntries", {fileSystemEntries: fileSystemEntries}) %>
+    <%- include("fileSystemEntries") %>
 </div>
 <div>
     <button id="addButton">Add</button>
@@ -9,7 +9,6 @@
     </div>
     <script>
         addButton.addEventListener("click", () => {
-            console.log('clicked', uploadSection)
             uploadSection.classList.toggle('hide')
         })
     </script>

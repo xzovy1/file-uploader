@@ -11,11 +11,7 @@ usersRouter.get("/:id", usersController.getUser);
 usersRouter.get("/:id/:folderName", filesController.getFolder);
 
 usersRouter.post("/:id/upload", uploadMiddleware, filesController.uploadFile);
-usersRouter.post(
-  "/:id/:folderName",
-  uploadMiddleware,
-  filesController.uploadFile
-);
+usersRouter.post("/:id/:folder", uploadMiddleware, filesController.uploadFile);
 
 usersRouter.post("/newFolder", filesController.createFolder);
 

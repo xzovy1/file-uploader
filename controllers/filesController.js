@@ -2,11 +2,19 @@ const { mkdir } = require("node:fs/promises");
 const { join } = require("node:path");
 const prisma = require("../prisma/client");
 
-const uploadFile = (req, res, next) => {
+const uploadFile = async (req, res, next) => {
   const { id } = res.locals.user;
-
-  console.log(req.files["uploaded_file"][0].filename, req.body.filename);
-  res.redirect(`/user/${id}`);
+  const { folder } = req.params;
+  const prismaFolder = await prisma.folder.findUnique({
+    where: {
+      name: folder,
+    },
+  });
+  if (folder) {
+    res.redirect(`/user/${id}/${prismaFolder.id}`);
+  } else {
+    res.redirect(`/user/${id}`);
+  }
 };
 
 const createFolder = async (req, res) => {
@@ -27,22 +35,19 @@ const createFolder = async (req, res) => {
 const getFolder = async (req, res) => {
   const url = req.url.split("/");
   const folderId = url[url.length - 1];
-
   const user = res.locals.user;
-  // res.send("");
   const prismaFolder = await prisma.folder.findUnique({
     where: {
-      // user: user.id,
       id: parseInt(folderId),
     },
   });
-  console.log(prismaFolder);
+  res.locals.folder = prismaFolder;
   res.render("index", {
     title: prismaFolder.name,
     user: res.locals.user,
     partial: "partials/home",
     fileSystemEntries: prismaFolder,
-    filePath: `user/${user.id}/${prismaFolder.name}`,
+    actionPath: `user/${user.id}/${prismaFolder.name}`,
   });
 };
 
