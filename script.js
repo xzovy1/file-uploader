@@ -2,7 +2,11 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const main = async () => {
-  const users = await prisma.folder.deleteMany();
+  const users = await prisma.folder.findUnique({
+    where: {
+      authorId: 66,
+    },
+  });
   console.log(users);
 };
 

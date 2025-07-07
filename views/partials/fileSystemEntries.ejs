@@ -1,7 +1,7 @@
-<% console.log(fileSystemEntries) %>
+<% console.log(locals.user.id) %>
 <% if(fileSystemEntries.length > 0){ fileSystemEntries.map(fileSystemEntry => { %>
-    <div class="folder">
-        <a href="/<%= fileSystemEntry.name %>"><%=fileSystemEntry.name %></a>
+    <div class="entry">
+        <a href="/user/<%= user.id %>/<%= fileSystemEntry.id %>"><%=fileSystemEntry.name %></a>
         <div>Created: <%= fileSystemEntry.createdAt.toLocaleString() %></div>
         <div>Modified: <%= fileSystemEntry.updatedAt.toLocaleString() %></div>
     </div>

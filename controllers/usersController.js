@@ -35,6 +35,7 @@ const getUser = asyncHandler(async (req, res) => {
     user: user,
     form: "partials/home",
     fileSystemEntries: folders,
+    filePath: `user/${id}/upload`,
   });
 });
 

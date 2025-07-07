@@ -25,18 +25,25 @@ const createFolder = async (req, res) => {
 };
 
 const getFolder = async (req, res) => {
-  console.log("getFolder");
-  res.send("");
-  // const prismaFolder = await prisma.folder.findUnique({
-  //   where: {
-  //     authorId: 66,
-  //   },
-  // });
-  // res.render("index", {
-  //   title: prismaFolder.name,
-  //   user: res.locals.user,
-  //   partial: "partials/fileSystemEntries",
-  // });
+  const url = req.url.split("/");
+  const folderId = url[url.length - 1];
+
+  const user = res.locals.user;
+  // res.send("");
+  const prismaFolder = await prisma.folder.findUnique({
+    where: {
+      // user: user.id,
+      id: parseInt(folderId),
+    },
+  });
+  console.log(prismaFolder);
+  res.render("index", {
+    title: prismaFolder.name,
+    user: res.locals.user,
+    partial: "partials/home",
+    fileSystemEntries: prismaFolder,
+    filePath: `user/${user.id}/${prismaFolder.name}`,
+  });
 };
 
 module.exports = {
