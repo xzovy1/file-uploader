@@ -1,0 +1,12 @@
+<h3>Files</h3>
+<% console.log(locals) %>
+<% if(files.length > 0){ files.map(file => { %>
+    <div class="file-entry">
+        <a href="/user/<%= locals.user.id %>/<%= file.name %>"><%=file.name %></a>
+        <div>Created: <%=  file.createdAt.toLocaleString() %></div>
+        <div>Modified: <%= file.updatedAt.toLocaleString() %></div>
+    </div>
+<% }) %>
+<% }else{ %>
+    <h3>Nothing found</h3>
+<% } %> 

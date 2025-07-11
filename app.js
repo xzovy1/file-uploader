@@ -9,7 +9,7 @@ const prisma = require("./prisma/client");
 
 const app = express();
 
-const usersRouter = require("./routes/usersRouter");
+const router = require("./routes/router");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/user", usersRouter);
+app.use("/user", router);
 app.get("/", (req, res) => {
   res.render("index", { title: "Log in", partial: "partials/login" });
 });

@@ -30,12 +30,18 @@ const getUser = asyncHandler(async (req, res) => {
       authorId: parseInt(id),
     },
   });
-  res.render("index", {
-    title: `Welcome, ${user.username}`,
+  const files = await prisma.file.findMany({
+    where: {
+      authorId: parseInt(id),
+      folderId: null,
+    },
+  });
+  res.render("dashboard", {
+    title: `File Uploader`,
     user: user,
-    form: "partials/home",
-    fileSystemEntries: folders,
-    actionPath: `user/${id}/upload`,
+    folders: folders,
+    files: files,
+    fileActionPath: `user/${user.id}/`,
   });
 });
 

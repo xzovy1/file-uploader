@@ -16,13 +16,28 @@ this app is a stripped down version of a personal storage service like Google Dr
 
 #### Login Page
 
+- sign up page
+
+  - render: index
+  - title: 'Sign up'
+  - partial: signup
+
 - basic login page
+
   - render: "index"
   - title: "Welecome ${user.username}"
   - user user
   - form : home
   - filesystem: folders
-  - filePath (formpath): users/$id/upload
+  - actionPath (formpath): users/$id/upload
+
+- get folder
+  - render : index
+  - title : prismaFolder name
+  - user: res.locals.user
+  - partial : home
+  - fileSystemEntries: prisma folder
+  - actionpath: user/user.id/foldername
 
 #### File dashboard
 
@@ -53,4 +68,4 @@ this app is a stripped down version of a personal storage service like Google Dr
 - primary key
 - name
 - date
-  -fk_folder
+- fk_folder

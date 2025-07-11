@@ -3,8 +3,8 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const user = req.user;
 
-    const { folder } = req.params;
-    if (folder) {
+    if (req.params.folder) {
+      const { folder } = req.params;
       cb(null, `./uploads/${user.id}/${folder}`);
     } else {
       cb(null, `./uploads/${user.id}/`);
@@ -12,7 +12,11 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const { filename } = req.body;
-    cb(null, filename || file.originalname);
+    if (filename !== "") {
+      cb(null, filename);
+    } else {
+      cb(null, file.originalname);
+    }
   },
 });
 const upload = multer({ storage: storage });

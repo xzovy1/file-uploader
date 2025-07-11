@@ -2,12 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const main = async () => {
-  const users = await prisma.folder.findUnique({
+  const dbCall = await prisma.file.findMany({
     where: {
-      authorId: 66,
+      authorId: 1,
     },
   });
-  console.log(users);
+  console.log(dbCall);
 };
 
 main()
