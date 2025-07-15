@@ -11,6 +11,7 @@ router.get("/:id", usersController.getUser);
 
 router.use(storeFolderToLocals);
 router.get("/:id/:folderName", filesController.getFolder);
+router.get("/:id/:folderName/:filename", filesController.getFile);
 
 router.post("/:id/", uploadMiddleware, filesController.uploadFile);
 router.post(

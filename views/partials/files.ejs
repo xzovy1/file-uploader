@@ -1,8 +1,11 @@
 <h3>Files</h3>
-<% console.log(locals) %>
-<% if(files.length > 0){ files.map(file => { %>
+<% if(files.length > 0){ files.map((file, index) => { %>
     <div class="file-entry">
-        <a href="/user/<%= locals.user.id %>/<%= file.name %>"><%=file.name %></a>
+        <% if(!file.folderId){ %>
+            <a href="/user/<%= locals.user.id %>/root/<%= file.name %>"><%=file.name %></a>
+        <%  } else{ %>
+            <a href="/user/<%= locals.user.id %>/<%= locals.folders[index].name %>/<%= file.name %>"><%=file.name %></a>
+      <%  } %>
         <div>Created: <%=  file.createdAt.toLocaleString() %></div>
         <div>Modified: <%= file.updatedAt.toLocaleString() %></div>
     </div>

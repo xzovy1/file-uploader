@@ -12,6 +12,31 @@ const uploadFile = async (req, res, next) => {
   });
   res.redirect(`/user/${id}`);
 };
+const getFile = async (req, res) => {
+  const { filename } = req.params;
+  const { id } = res.locals.user;
+  const prismaFile = await prisma.file.findUnique({
+    where: {
+      name: filename,
+      authorId: id,
+    },
+    relationLoadStrategy: "join",
+    include: {
+      author: true,
+      folder: true,
+    },
+  });
+  if (!prismaFile) {
+    return null;
+  }
+  // console.log(prismaFile);
+  res.render("index", {
+    title: filename,
+    partial: "partials/info",
+    file: prismaFile,
+  });
+};
+
 const uploadFileToFolder = async (req, res, next) => {
   const { id } = res.locals.user;
   const { folder } = req.params;
@@ -54,18 +79,19 @@ const getFolder = async (req, res) => {
       name: req.params.folderName,
     },
   });
-  const folderId = prismaFolder.id;
+  const folderId = req.params.id;
+
   const files = await prisma.file.findMany({
     where: {
       id: parseInt(folderId),
     },
   });
+  console.log(files);
   res.render("index", {
     title: prismaFolder.name,
     user: res.locals.user,
     partial: "partials/files",
     files: files,
-    filePath: `user/${user.id}/${prismaFolder.id}/${files.id}`,
   });
 };
 
@@ -74,4 +100,5 @@ module.exports = {
   uploadFileToFolder,
   createFolder,
   getFolder,
+  getFile,
 };

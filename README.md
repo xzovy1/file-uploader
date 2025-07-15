@@ -69,3 +69,11 @@ this app is a stripped down version of a personal storage service like Google Dr
 - name
 - date
 - fk_folder
+
+## To be continued...
+
+- add delete capability for each file/folder
+- allow for nested folders.
+- possibly change null folder to a default 'home' or 'root' folder when uploading files to the user (not a folder)
+- add update ability to move files or folders.
+- drag and drop for file upload
