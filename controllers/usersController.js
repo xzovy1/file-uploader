@@ -19,7 +19,10 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const getUser = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  if (!req.app.locals.user) {
+    return res.redirect("/login");
+  }
+  const id = req.app.locals.user.id;
   const user = await prisma.user.findUnique({
     where: {
       id: parseInt(id),
@@ -41,7 +44,7 @@ const getUser = asyncHandler(async (req, res) => {
     user: user,
     folders: folders,
     files: files,
-    fileActionPath: `user/${user.id}/`,
+    fileActionPath: `${user.id}`, //newFile.ejs
   });
 });
 

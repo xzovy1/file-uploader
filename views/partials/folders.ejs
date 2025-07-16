@@ -1,7 +1,7 @@
 <h3>Folders</h3>
 <% if(folders.length > 0){ folders.map(folder => { %>
     <div class="folder-entry">
-        <a href="/user/<%= locals.user.id %>/<%= folder.name %>"><%=folder.name %></a>
+        <a href="/<%= folder.name %>"><%=folder.name %></a>
         <div>Created: <%=  folder.createdAt.toLocaleString() %></div>
         <div>Modified: <%= folder.updatedAt.toLocaleString() %></div>
     </div>

@@ -12,10 +12,8 @@ const app = express();
 const router = require("./routes/router");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -33,44 +31,43 @@ app.use(
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      console.log("errored");
+      return next(err);
+    }
+    req.app.locals.user = undefined;
+    res.redirect("/login");
+  });
+});
+
 app.use((req, res, next) => {
-  res.locals.user = req.user;
+  console.log(req.user); //why is this called twice on page refresh ?
+  if (req.user) {
+    req.app.locals.user = req.user;
+  }
   next();
 });
 
-app.use("/user", router);
-app.get("/", (req, res) => {
+app.get("/login", (req, res) => {
+  if (req.app.locals.user) {
+    return res.redirect("/");
+  }
   res.render("index", { title: "Log in", partial: "partials/login" });
 });
 
-app.post("/login/password", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      console.log(err);
-      return next(err);
-    }
-    if (!user) {
-      const message = "No user found or credentials incorrect";
-      console.log("No user found or credentials incorrect");
-      return res.render("index", {
-        title: "Log in",
-        partial: "partials/login",
-        error: message,
-      });
-    }
-    req.logIn(user, (err) => {
-      if (err) return next(err);
-      return res.redirect(`/user/${user.id}`);
-    });
-  })(req, res, next);
-});
-
-app.get("/log-out", (req, res, next) => {
-  req.logOut((err) => {
-    if (err) return next(err);
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+  }),
+  (req, res) => {
     res.redirect("/");
-  });
-});
+  }
+);
+
+app.use("/", router);
 
 app.use((err, req, res, next) => {
   console.error(err);
@@ -87,9 +84,10 @@ app.use((err, req, res, next) => {
     error: err,
     code: res.statusCode,
     message: message,
-    link: req.url,
+    link: "/",
   });
-  next();
 });
 
-app.listen(3000, () => console.log("app listening: http://localhost:3000"));
+app.listen(3000, () =>
+  console.log("app listening: http://localhost:3000/login")
+);

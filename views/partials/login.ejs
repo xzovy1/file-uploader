@@ -1,4 +1,4 @@
-<form action="/login/password" method="post">
+<form action="/login" method="post">
     <% if (locals.error){ %>
         <div style="color: red;">
             <%=error %>
@@ -13,5 +13,5 @@
         <input id="current-password" name="password" type="password" autocomplete="current-password" required>
     </section>
     <button type="submit">Sign in</button>
-    <a href="/user/new">Sign up</a>
+    <a href="/new">Sign up</a>
 </form>

@@ -7,11 +7,12 @@ const storeFolderToLocals = require("../middleware/folderMiddleware");
 
 router.get("/new", usersController.signUpGet);
 router.post("/new", usersController.createUser);
-router.get("/:id", usersController.getUser);
 
-router.use(storeFolderToLocals);
-router.get("/:id/:folderName", filesController.getFolder);
-router.get("/:id/:folderName/:filename", filesController.getFile);
+router.get("/", usersController.getUser);
+
+// router.use(storeFolderToLocals);
+router.get("/:folderName", filesController.getFolder);
+router.get("/:folderName/:filename", filesController.getFile);
 
 router.post("/:id/", uploadMiddleware, filesController.uploadFile);
 router.post(
