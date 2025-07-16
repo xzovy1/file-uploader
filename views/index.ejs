@@ -10,12 +10,8 @@
     <h1><%= title %></h1>
     <% if(locals.partial){ %>
         <%- include(partial) %>
-    <% } %>
-    <% if(locals.user){ %> 
-        <a href="/log-out">Log out</a>
-        <% if(locals.form){ %>
-            <%- include(form) %>
         <% } %>
-    <% } %>
+    <%- include("partials/logout") %>
+
     </body>
 </html>
