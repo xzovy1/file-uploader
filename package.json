@@ -1,22 +1,23 @@
 {
-  "name": "members-only",
+  "name": "file-uploader",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "this app is a stripped down version of a personal storage service like Google Drive with the main goal of practicing using the Prisma ORM (object relational mapper). It will build off everything learned so far in T.O.P, with added Prisma, @quixo3/prisma-session-store and multer packages.",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xzovy1/members-only.git"
+    "url": "git+https://github.com/xzovy1/file-uploader.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/xzovy1/members-only/issues"
+    "url": "https://github.com/xzovy1/file-uploader/issues"
   },
-  "homepage": "https://github.com/xzovy1/members-only#readme",
+  "homepage": "https://github.com/xzovy1/file-uploader#readme",
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "@quixo3/prisma-session-store": "^3.1.13",
@@ -34,8 +35,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.16.0"
   },
-  "type": "commonjs",
-  "devDependencies": {
+    "devDependencies": {
     "prisma": "^6.10.1"
   }
 }
