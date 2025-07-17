@@ -11,7 +11,7 @@ const uploadFile = async (req, res, next) => {
       author: { connect: { id: id } },
     },
   });
-  res.redirect(`/user/${id}`);
+  res.redirect(`/`);
 };
 
 const getFile = async (req, res) => {
@@ -55,7 +55,7 @@ const uploadFileToFolder = async (req, res, next) => {
       author: { connect: { id: id } },
     },
   });
-  res.redirect(`/${id}/${prismaFolder.id}`);
+  res.redirect(`/${prismaFolder.id}`);
 };
 
 const createFolder = async (req, res) => {
@@ -70,7 +70,7 @@ const createFolder = async (req, res) => {
     },
   });
   const dirCreation = await mkdir(projectFolder, { recursive: true });
-  res.redirect(`/${id}`);
+  res.redirect(`/`);
 };
 
 const getFolder = async (req, res) => {

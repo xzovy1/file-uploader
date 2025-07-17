@@ -2,7 +2,7 @@
 <% if(files.length > 0){ files.map((file, index) => { %>
     <div class="file-entry">
         <% if(!file.folderId){ %>
-            <a href="/<%= file.name %>"><%=file.name %></a>
+            <a href="/root/<%= file.name %>"><%=file.name %></a>
         <%  } else{ %>
             <a href="/<%= folder %>/<%= file.name %>"><%=file.name %></a>
       <%  } %>

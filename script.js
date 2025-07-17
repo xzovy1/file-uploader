@@ -2,11 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const main = async () => {
-  const dbCall = await prisma.file.findMany({
-    where: {
-      authorId: 1,
-    },
-  });
+  const dbCall = await prisma.user.findMany();
   console.log(dbCall);
 };
 

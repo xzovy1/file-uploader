@@ -43,7 +43,7 @@ app.get("/logout", (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  console.log(req.user); //why is this called twice on page refresh ?
+  // console.log(req.user); //why is this called twice on page refresh ?
   if (req.user) {
     req.app.locals.user = req.user;
   }

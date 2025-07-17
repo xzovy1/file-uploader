@@ -33,7 +33,7 @@ const getUser = asyncHandler(async (req, res) => {
       authorId: parseInt(id),
     },
   });
-  const files = await prisma.file.findMany({
+  const rootFiles = await prisma.file.findMany({
     where: {
       authorId: parseInt(id),
       folderId: null,
@@ -43,7 +43,7 @@ const getUser = asyncHandler(async (req, res) => {
     title: `File Uploader`,
     user: user,
     folders: folders,
-    files: files,
+    files: rootFiles,
     fileActionPath: `${user.id}`, //newFile.ejs
   });
 });
