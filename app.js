@@ -42,23 +42,16 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
-const saveUserToApp = (req, res, next) => {
-  if (req.user) {
-    req.app.locals.user = req.user;
-  }
-  next();
-};
-
 app.get("/login", (req, res) => {
-  if (req.app.locals.user) {
-    return res.redirect("/");
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  } else {
+    res.render("index", { title: "Log in", partials: ["partials/login"] });
   }
-  res.render("index", { title: "Log in", partials: ["partials/login"] });
 });
 
 app.post(
   "/login",
-  saveUserToApp,
   passport.authenticate("local", {
     failureRedirect: "/login",
   }),

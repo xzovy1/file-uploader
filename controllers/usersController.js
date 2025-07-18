@@ -19,10 +19,10 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const getUser = asyncHandler(async (req, res) => {
-  if (!req.app.locals.user) {
+  if (req.isUnauthenticated()) {
     return res.redirect("/login");
   }
-  const { id } = req.app.locals.user;
+  const { id } = req.user;
   const user = await prisma.user.findUnique({
     where: {
       id: parseInt(id),

@@ -3,7 +3,7 @@ const { join } = require("node:path");
 const prisma = require("../prisma/client");
 
 const uploadFile = async (req, res, next) => {
-  const { id } = req.app.locals.user;
+  const { id } = req.user;
   const folderName = req.params.folderName;
   console.log(req.app.locals);
   console.log(req.params);
@@ -18,7 +18,7 @@ const uploadFile = async (req, res, next) => {
 
 const getFile = async (req, res) => {
   const { filename } = req.params;
-  const { id } = req.app.locals.user;
+  const { id } = req.user;
 
   console.log(req.params);
   req.app.locals.fileInfo = req.params;
@@ -43,7 +43,7 @@ const getFile = async (req, res) => {
 };
 
 const uploadFileToFolder = async (req, res) => {
-  const { id } = req.app.locals.user;
+  const { id } = req.user;
   const prismaFile = await prisma.file.create({
     data: {
       name: req.body.filename,
@@ -59,7 +59,6 @@ const uploadFileToFolder = async (req, res) => {
 const deleteFile = async (req, res) => {
   const { user, fileInfo } = req.app.locals;
 
-  console.log(req.app.locals.fileInfo);
   await prisma.file.delete({
     where: {
       authorId: user.id,
@@ -71,7 +70,7 @@ const deleteFile = async (req, res) => {
 
 const createFolder = async (req, res) => {
   const { foldername } = req.body;
-  const { id } = req.app.locals.user;
+  const { id } = req.user;
 
   const projectFolder = join("./uploads", id.toString(), foldername);
   const constPrismaFolder = await prisma.folder.create({
@@ -85,7 +84,7 @@ const createFolder = async (req, res) => {
 };
 
 const getFolder = async (req, res) => {
-  const user = req.app.locals.user;
+  const user = req.user;
   const prismaFolder = await prisma.folder.findUnique({
     where: {
       name: req.params.folderName,
@@ -96,7 +95,7 @@ const getFolder = async (req, res) => {
   });
   res.render("index", {
     title: prismaFolder.name,
-    user: req.app.locals.user,
+    user: user,
     partials: ["partials/files", "partials/newFile", "partials/deleteFolder"],
     folder: prismaFolder.name,
     files: prismaFolder.files,
