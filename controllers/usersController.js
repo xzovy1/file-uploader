@@ -22,28 +22,25 @@ const getUser = asyncHandler(async (req, res) => {
   if (!req.app.locals.user) {
     return res.redirect("/login");
   }
-  const id = req.app.locals.user.id;
+  const { id } = req.app.locals.user;
   const user = await prisma.user.findUnique({
     where: {
       id: parseInt(id),
     },
-  });
-  const folders = await prisma.folder.findMany({
-    where: {
-      authorId: parseInt(id),
-    },
-  });
-  const rootFiles = await prisma.file.findMany({
-    where: {
-      authorId: parseInt(id),
-      folderId: null,
+    include: {
+      files: {
+        where: {
+          folderId: null,
+        },
+      },
+      folders: true,
     },
   });
   res.render("dashboard", {
     title: `File Uploader`,
     user: user,
-    folders: folders,
-    files: rootFiles,
+    folders: user.folders,
+    files: user.files,
     fileActionPath: `${user.id}`, //newFile.ejs
   });
 });

@@ -4,10 +4,10 @@
         <% if(!file.folderId){ %>
             <a href="/root/<%= file.name %>"><%=file.name %></a>
         <%  } else{ %>
-            <a href="/<%= folder %>/<%= file.name %>"><%=file.name %></a>
+            <a href="/<%= locals.folder %>/<%= file.name %>"><%=file.name %></a>
       <%  } %>
-        <div>Created: <%=  file.createdAt.toLocaleString() %></div>
-        <div>Modified: <%= file.updatedAt.toLocaleString() %></div>
+        <!-- <div>Created: <%=  file.createdAt.toLocaleString() %></div> -->
+        <!-- <div>Modified: <%= file.updatedAt.toLocaleString() %></div> -->
     </div>
 <% }) %>
 <% }else{ %>

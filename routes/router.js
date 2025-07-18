@@ -10,7 +10,9 @@ router.post("/new", usersController.createUser);
 
 router.get("/", usersController.getUser);
 
+router.post("/newFolder", filesController.createFolder, storeFolderToLocals);
 // router.use(storeFolderToLocals);
+
 router.get("/:folderName", filesController.getFolder);
 router.get("/:folderName/:filename", filesController.getFile);
 
@@ -21,7 +23,5 @@ router.post(
   filesController.uploadFileToFolder
 );
 router.post("/:id/:folder", uploadMiddleware, filesController.uploadFile);
-
-router.post("/newFolder", filesController.createFolder);
 
 module.exports = router;

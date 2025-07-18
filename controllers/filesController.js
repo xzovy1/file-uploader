@@ -22,7 +22,6 @@ const getFile = async (req, res) => {
       name: filename,
       authorId: id,
     },
-    relationLoadStrategy: "join",
     include: {
       author: true,
       folder: true,
@@ -79,7 +78,6 @@ const getFolder = async (req, res) => {
     where: {
       name: req.params.folderName,
     },
-    relationLoadStrategy: "join",
     include: {
       files: true,
     },

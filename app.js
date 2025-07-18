@@ -42,13 +42,12 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
-app.use((req, res, next) => {
-  // console.log(req.user); //why is this called twice on page refresh ?
+const saveUserToApp = (req, res, next) => {
   if (req.user) {
     req.app.locals.user = req.user;
   }
   next();
-});
+};
 
 app.get("/login", (req, res) => {
   if (req.app.locals.user) {
@@ -59,6 +58,7 @@ app.get("/login", (req, res) => {
 
 app.post(
   "/login",
+  saveUserToApp,
   passport.authenticate("local", {
     failureRedirect: "/login",
   }),
