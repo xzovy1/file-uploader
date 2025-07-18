@@ -53,7 +53,7 @@ app.get("/login", (req, res) => {
   if (req.app.locals.user) {
     return res.redirect("/");
   }
-  res.render("index", { title: "Log in", partial: "partials/login" });
+  res.render("index", { title: "Log in", partials: ["partials/login"] });
 });
 
 app.post(

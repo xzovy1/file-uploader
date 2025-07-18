@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 
 const signUpGet = (req, res) => {
-  res.render("index", { title: "Sign up", partial: "partials/signup" });
+  res.render("index", { title: "Sign up", partials: ["partials/signup"] });
 };
 
 const createUser = asyncHandler(async (req, res) => {

@@ -1,11 +1,13 @@
 const prisma = require("../prisma/client");
 const storeFolderToLocals = async (req, res, next) => {
-  const folders = await prisma.folder.findMany({
+  const { folderName } = req.params;
+  const folder = await prisma.folder.findUnique({
     where: {
-      authorId: parseInt(res.locals.user.id),
+      authorId: parseInt(req.app.locals.user.id),
+      name: folderName,
     },
   });
-  res.locals.folders = folders;
+  req.app.locals.folder = folder;
   next();
 };
 

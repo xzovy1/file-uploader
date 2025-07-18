@@ -9,9 +9,12 @@
 <body>
     <h1><%= title %></h1>
 
-    <% if(locals.partial){ %>
-        <%- include(partial) %>
-        <% } %>
+    <% if(locals.partials){ %>
+        <%partials.map(partial => { %>
+            <%- include(partial) %>
+        <% }) %>
+    <% } %>
+    <a href="./">Back</a>
     <%- include("partials/logout") %>
 
     </body>

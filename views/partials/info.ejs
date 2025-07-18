@@ -2,5 +2,8 @@
     <h3>Created By: <%=file.author.username %></h3>
     <div>Created At: <%=  file.createdAt.toLocaleString() %></div>
     <div>Modified At: <%= file.updatedAt.toLocaleString() %></div>
+    <form action="/deleteFile" method="post">
+        <button type="submit">Delete</button>    
+    </form>
     <a href="../">Back</a>
 </div>

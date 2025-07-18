@@ -6,11 +6,8 @@
         <%  } else{ %>
             <a href="/<%= locals.folder %>/<%= file.name %>"><%=file.name %></a>
       <%  } %>
-        <!-- <div>Created: <%=  file.createdAt.toLocaleString() %></div> -->
-        <!-- <div>Modified: <%= file.updatedAt.toLocaleString() %></div> -->
     </div>
 <% }) %>
 <% }else{ %>
-    <h3>Nothing found</h3>
+    <h4>Nothing found</h4>
 <% } %> 
-<a href="./">Back</a>

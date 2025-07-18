@@ -10,15 +10,16 @@ router.post("/new", usersController.createUser);
 
 router.get("/", usersController.getUser);
 
-router.post("/newFolder", filesController.createFolder, storeFolderToLocals);
-// router.use(storeFolderToLocals);
+router.post("/newFolder", filesController.createFolder);
 
-router.get("/:folderName", filesController.getFolder);
+router.post("/deleteFile", filesController.deleteFile);
+router.post("/deleteFolder", filesController.deleteFolder);
+router.get("/:folderName", storeFolderToLocals, filesController.getFolder);
 router.get("/:folderName/:filename", filesController.getFile);
 
-router.post("/:id/", uploadMiddleware, filesController.uploadFile);
+router.post("/:id", uploadMiddleware, filesController.uploadFile);
 router.post(
-  "/:id/upload",
+  "/:id/folderUpload",
   uploadMiddleware,
   filesController.uploadFileToFolder
 );
