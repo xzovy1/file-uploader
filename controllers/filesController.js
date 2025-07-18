@@ -57,11 +57,11 @@ const uploadFileToFolder = async (req, res) => {
 };
 
 const deleteFile = async (req, res) => {
-  const { user, fileInfo } = req.app.locals;
+  const { fileInfo } = req.app.locals;
 
   await prisma.file.delete({
     where: {
-      authorId: user.id,
+      authorId: req.user.id,
       name: fileInfo.filename,
     },
   });
