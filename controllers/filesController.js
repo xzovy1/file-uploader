@@ -4,9 +4,6 @@ const prisma = require("../prisma/client");
 
 const uploadFile = async (req, res, next) => {
   const { id } = req.user;
-  const folderName = req.params.folderName;
-  console.log(req.app.locals);
-  console.log(req.params);
   const prismaFile = await prisma.file.create({
     data: {
       name: req.body.filename,
@@ -19,8 +16,6 @@ const uploadFile = async (req, res, next) => {
 const getFile = async (req, res) => {
   const { filename } = req.params;
   const { id } = req.user;
-
-  console.log(req.params);
   req.app.locals.fileInfo = req.params;
   const prismaFile = await prisma.file.findUnique({
     where: {
