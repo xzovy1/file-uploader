@@ -1,13 +1,13 @@
-<h3>Files</h3>
-<% if(files.length > 0){ files.map((file, index) => { %>
-    <div class="file-entry">
-        <% if(!file.folderId){ %>
-            <a href="/root/<%= file.name %>"><%=file.name %></a>
-        <%  } else{ %>
-            <a href="/<%= locals.folder %>/<%= file.name %>"><%=file.name %></a>
-      <%  } %>
-    </div>
-<% }) %>
-<% }else{ %>
-    <h4>Nothing found</h4>
-<% } %> 
+    <h3>Files</h3>
+    <% if(files.length > 0){ files.map((file, index) => { %>
+        <div class="file-entry">
+            <% if(!file.folderId){ %>
+                <a href="/root/<%= file.name %>"><%=file.name %></a>
+            <%  } else{ %>
+                <a href="/<%= locals.folder %>/<%= file.name %>"><%=file.name %></a>
+        <%  } %>
+        </div>
+    <% }) %>
+    <% }else{ %>
+        <h4>Nothing found</h4>
+    <% } %> 

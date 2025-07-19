@@ -7,11 +7,27 @@
     <title><%= title %></title>
 </head>
 <body>
-    <h1>Welcome back, <%= locals.user.username %></h1>
-    <%- include("partials/folders", {folders: folders}) %>
-    <%- include("partials/files", {files: files}) %>
-    <%- include("partials/newFolder") %>
-    <%- include("partials/newFile") %>
-    <%- include("partials/logout") %>
+    <div id="top-bar">
+        <button id="addButton"> Add </button>
+        <h1>Welcome, <%= locals.user.username %></h1>
+        <%- include("partials/logout") %>
+    </div>
+    <div class="newItems hide">
+        <%- include("partials/newFolder") %>
+        <%- include("partials/newFile") %>
+    </div>
+    <div class="content">
+        <%- include("partials/folders", {folders: folders}) %>
+        <%- include("partials/files", {files: files}) %>
+    </div>
+    <script>
+        addButton.addEventListener('click', ()=> {
+            const addItem = document.querySelector('.newItems')
+            addItem.classList.toggle("hide")
+
+            addItem.classList.length == 1 ? addButton.textContent = 'Close' : addButton.textContent = ' Add '
+
+        })
+    </script>
 </body>
 </html>
